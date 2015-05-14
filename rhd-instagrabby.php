@@ -65,31 +65,28 @@ class RHD_Instagrabby extends WP_Widget {
 
 	public function widget( $args, $instance ) {
 		// outputs the content of the widget
-		$vals = get_option( 'rhd_instagrabby_settings' );
+		$options = get_option( 'rhd_instagrabby_settings' );
+		$token = $options['rhd_instagrabby_access_token'];
+		$userID = $options['rhd_instagrabby_user_id'];
 
 		extract( $args );
-
-		$instagram = new Instagram(array(
-			'apiKey'      => $vals['rhd_instagrabby_client_id'],
-			'apiSecret'   => $vals['rhd_instagrabby_client_secret'],
-			'apiCallback' => 'http://dev.roundhouse-designs.com/damasklove/wp-admin/options-general.php?page=rhd_instagrabby_settings'
-		));
-		$token = get_option( '_rhd_instagrabby_token' );
 
 		$title = ( $instance['title'] ) ? apply_filters('widget_title', $instance['title']) : '';
 
 		echo $before_widget;
 
 		echo $title;
-		?>
 
-		<?php
-			$instagram->getAccessToken();
-			$result = $instagram->getUserMedia();
-			print_r($result);
-		?>
+		// Pulls and parses data.
+		$result = $this->fetchInstagramData("https://api.instagram.com/v1/users/{$userID}/media/recent/?access_token={$token}");
+		$result = json_decode($result);
 
-		<?php echo $after_widget;
+		foreach ($result->data as $post) {
+			// Renders images. @Options (thumbnail,low_resoulution, high_resolution)
+			echo "<a class='group' rel='group1' href='{$post->images->standard_resolution->url}'><img src='{$post->images->thumbnail->url}'></a>";
+		}
+
+		echo $after_widget;
 	}
 
 	public function form( $instance ) {
@@ -102,6 +99,16 @@ class RHD_Instagrabby extends WP_Widget {
 			<input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $args['title']; ?>" >
 		</p>
 	<?php
+	}
+
+	public function fetchInstagramData($url){
+	     $ch = curl_init();
+	     curl_setopt($ch, CURLOPT_URL, $url);
+	     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+	     curl_setopt($ch, CURLOPT_TIMEOUT, 20);
+	     $result = curl_exec($ch);
+	     curl_close($ch);
+	     return $result;
 	}
 }
 // register RHD_Instagrabby widget

@@ -52,13 +52,12 @@ class RHD_Instagrabby_Options
 		$instagram = new Instagram(array(
 			'apiKey'      => $this->options['rhd_instagrabby_client_id'],
 			'apiSecret'   => $this->options['rhd_instagrabby_client_secret'],
-			'apiCallback' => 'http://dev.roundhouse-designs.com/damasklove/wp-admin/options-general.php?page=rhd_instagrabby_settings'
+			'apiCallback' => 'http://dev.roundhouse-designs.com/damasklove/wp-admin/options-general.php?page=rhd_instagrabby_settings'
 		));
 
 		$loginUrl = $instagram->getLoginUrl();
 
 		$code = $_GET['code'];
-		echo ( $code ) ? "Code: $code" : '';
 	?>
 	<div class="wrap">
 		<h2>Damask Love Theme Options</h2>
@@ -66,7 +65,6 @@ class RHD_Instagrabby_Options
 			<?php
 				// This prints out all hidden setting fields
 				settings_fields( 'rhd_instagrabby_settings_group' );
-				do_settings_sections( 'rhd-instagrabby-settings' );
 
 				if ( !$code ) {
 					echo "<p>\n"
@@ -75,18 +73,16 @@ class RHD_Instagrabby_Options
 					. "</p>";
 				} else {
 					// receive OAuth token object
-					echo "Logged in!";
 					$data = $instagram->getOAuthToken($code);
 					$username = $username = $data->user->username;
 
 					// store user access token
 					$instagram->setAccessToken($data);
-
-					//update_option( '_rhd_instagrabby_token', $instagram->getAccessToken() );
-
-					$result = $instagram->getUserMedia();
-					print_r($result);
+					$token = $instagram->getAccessToken();
+					echo "<p>Your New Access Token: <strong>$token</strong><br />Copy this token to the field below to save.</p>";
 				}
+
+				do_settings_sections( 'rhd-instagrabby-settings' );
 
 				submit_button();
 			?>
@@ -113,6 +109,13 @@ class RHD_Instagrabby_Options
 			'rhd-instagrabby-settings' // Page
 		);
 
+		add_settings_section(
+			'rhd_instagrabby_user_section', // ID
+			'User Credentials', // Title
+			array( $this, 'print_user_info' ), // Callback
+			'rhd-instagrabby-settings' // Page
+		);
+
 		add_settings_field(
 			'rhd_instagrabby_client_id', // ID
 			'Client ID: ', // Title
@@ -127,6 +130,22 @@ class RHD_Instagrabby_Options
 			array( $this, 'client_secret_cb' ), // Callback
 			'rhd-instagrabby-settings', // Page
 			'rhd_instagrabby_auth_section' // Section
+		);
+
+		add_settings_field(
+			'rhd_instagrabby_access_token', // ID
+			'Access Token: ', // Title
+			array( $this, 'access_token_cb' ), // Callback
+			'rhd-instagrabby-settings', // Page
+			'rhd_instagrabby_user_section' // Section
+		);
+
+		add_settings_field(
+			'rhd_instagrabby_user_id', // ID
+			'User ID: ', // Title
+			array( $this, 'user_id_cb' ), // Callback
+			'rhd-instagrabby-settings', // Page
+			'rhd_instagrabby_user_section' // Section
 		);
 	}
 
@@ -145,6 +164,12 @@ class RHD_Instagrabby_Options
 		if( isset( $input['rhd_instagrabby_client_secret'] ) )
 			$new_input['rhd_instagrabby_client_secret'] = sanitize_text_field( $input['rhd_instagrabby_client_secret'] );
 
+		if( isset( $input['rhd_instagrabby_access_token'] ) )
+			$new_input['rhd_instagrabby_access_token'] = sanitize_text_field( $input['rhd_instagrabby_access_token'] );
+
+		if( isset( $input['rhd_instagrabby_user_id'] ) )
+			$new_input['rhd_instagrabby_user_id'] = sanitize_text_field( $input['rhd_instagrabby_user_id'] );
+
 		return $new_input;
 	}
 
@@ -153,7 +178,12 @@ class RHD_Instagrabby_Options
 	*/
 	public function print_authentication_info()
 	{
-		// print 'Enter full URLs, please (e.g. "https://twitter.com/@roundhouseguys"):';
+		print '<a href="//instagram.com/developer">Instagram Developer Portal.</a><br /><strong>Redirect URI:</strong> ' . admin_url() . 'options-general.php?page=rhd_instagrabby_settings';
+	}
+
+	public function print_user_info()
+	{
+		print 'Copy the values and save after successfully logging in.<br />Find your User ID <a href="http://jelled.com/instagram/lookup-user-id" target="_blank">here</a>';
 	}
 
 	/**
@@ -172,6 +202,22 @@ class RHD_Instagrabby_Options
 		printf(
 			'<input type="text" id="rhd_instagrabby_client_secret" name="rhd_instagrabby_settings[rhd_instagrabby_client_secret]" value="%s" />',
 			isset( $this->options['rhd_instagrabby_client_secret'] ) ? esc_attr( $this->options['rhd_instagrabby_client_secret']) : ''
+		);
+	}
+
+	public function access_token_cb( $args )
+	{
+		printf(
+			'<input type="text" id="rhd_instagrabby_access_token" name="rhd_instagrabby_settings[rhd_instagrabby_access_token]" value="%s" />',
+			isset( $this->options['rhd_instagrabby_access_token'] ) ? esc_attr( $this->options['rhd_instagrabby_access_token']) : ''
+		);
+	}
+
+	public function user_id_cb( $args )
+	{
+		printf(
+			'<input type="text" id="rhd_instagrabby_user_id" name="rhd_instagrabby_settings[rhd_instagrabby_user_id]" value="%s" />',
+			isset( $this->options['rhd_instagrabby_user_id'] ) ? esc_attr( $this->options['rhd_instagrabby_user_id']) : ''
 		);
 	}
 }
