@@ -52,7 +52,7 @@ class RHD_Instagrabby_Options
 		$instagram = new Instagram(array(
 			'apiKey'      => $this->options['rhd_instagrabby_client_id'],
 			'apiSecret'   => $this->options['rhd_instagrabby_client_secret'],
-			'apiCallback' => 'http://dev.roundhouse-designs.com/damasklove/wp-admin/options-general.php?page=rhd_instagrabby_settings'
+			'apiCallback' => admin_url() . 'options-general.php?page=rhd_instagrabby_settings'
 		));
 
 		$loginUrl = $instagram->getLoginUrl();

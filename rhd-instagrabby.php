@@ -68,6 +68,13 @@ class RHD_Instagrabby extends WP_Widget {
 		$options = get_option( 'rhd_instagrabby_settings' );
 		$token = $options['rhd_instagrabby_access_token'];
 		$userID = $options['rhd_instagrabby_user_id'];
+		$instagram = new Instagram(array(
+			'apiKey'      => $options['rhd_instagrabby_client_id'],
+			'apiSecret'   => $options['rhd_instagrabby_client_secret'],
+			'apiCallback' => admin_url() . 'options-general.php?page=rhd_instagrabby_settings'
+		));
+
+		$instagram->setAccessToken( $token );
 
 		extract( $args );
 
@@ -77,13 +84,11 @@ class RHD_Instagrabby extends WP_Widget {
 
 		echo $title;
 
-		// Pulls and parses data.
-		$result = $this->fetchInstagramData("https://api.instagram.com/v1/users/{$userID}/media/recent/?access_token={$token}");
-		$result = json_decode($result);
+		$result = $instagram->getUserMedia( 'self', 3 );
 
 		foreach ($result->data as $post) {
-			// Renders images. @Options (thumbnail,low_resoulution, high_resolution)
-			echo "<a class='group' rel='group1' href='{$post->images->standard_resolution->url}'><img src='{$post->images->thumbnail->url}'></a>";
+			// Renders images. @Options (thumbnail, low_resoulution, high_resolution)
+			echo "<a class='instagram-post' rel='instagram' href='{$post->link}' target='_blank'><img src='{$post->images->thumbnail->url}' alt='{$post->caption->text}'></a>";
 		}
 
 		echo $after_widget;
@@ -99,16 +104,6 @@ class RHD_Instagrabby extends WP_Widget {
 			<input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo $args['title']; ?>" >
 		</p>
 	<?php
-	}
-
-	public function fetchInstagramData($url){
-	     $ch = curl_init();
-	     curl_setopt($ch, CURLOPT_URL, $url);
-	     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-	     curl_setopt($ch, CURLOPT_TIMEOUT, 20);
-	     $result = curl_exec($ch);
-	     curl_close($ch);
-	     return $result;
 	}
 }
 // register RHD_Instagrabby widget
