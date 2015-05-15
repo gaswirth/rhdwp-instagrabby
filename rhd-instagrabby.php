@@ -99,9 +99,9 @@ class RHD_Instagrabby extends WP_Widget {
 		$result = $instagram->getUserMedia( 'self', $limit );
 
 		if ( $result ) {
-			$output = "<style>#rhd_instagrabby_container-$id .rhd-instagrabby-pager a { width: $nav_width; }</style>"
+			$output = "<style scoped>#rhd_instagrabby_container-$id .rhd-instagrabby-pager a { width: $nav_width; }</style>"
 					. "<div id='rhd_instagrabby_container-$id' class='rhd-instagrabby-container'>\n"
-					. "<div class='rhd-instagrabby-pager'><a href='#' class='cycle-prev'><img src='" . RHD_INSTA_DIR . "/img/leftarrow.svg'></a><a href='#' class='cycle-next'><img src='" . RHD_INSTA_DIR . "/img/rightarrow.svg'></a></div>\n"
+					. "<div class='rhd-instagrabby-pager'><a href='#' class='cycle-prev'><img src='" . RHD_INSTA_DIR . "/img/leftarrow.svg' alt='Carousel left'></a><a href='#' class='cycle-next'><img src='" . RHD_INSTA_DIR . "/img/rightarrow.svg' alt='Carousel right'></a></div>\n"
 					. "<ul class='rhd-instagrabby cycle-slideshow' data-cycle-slides='> li' data-cycle-prev='.cycle-prev' data-cycle-next='.cycle-next' data-cycle-fx='carousel' data-cycle-timeout='0' data-cycle-carousel-visible='$visible' data-cycle-carousel-fluid='true'>\n"
 					. "<li class='rhd-instagrabby-icon'>\n"
 					. "<img src='" . RHD_INSTA_DIR . "/instagram.jpg' alt='Instagram'>\n"
@@ -111,11 +111,11 @@ class RHD_Instagrabby extends WP_Widget {
 				$caption = ( $post->caption->text ) ? $post->caption->text : 'Instagram: no caption';
 
 				$output .= "<li class='rhd-instagrabby-post'>\n"
-						. "<img src='{$post->images->standard_resolution->url}' alt='$caption'></a>"
+						. "<img src='{$post->images->standard_resolution->url}' alt='$caption'>"
 						. "</li>";
 			}
 
-			$output .= "</ul>\n";
+			$output .= "</ul>\n</div>\n";
 		}
 
 		echo $output;
