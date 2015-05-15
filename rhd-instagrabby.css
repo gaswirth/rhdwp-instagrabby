@@ -1,0 +1,27 @@
+/***
+* RHD Dev: Compiled at 11:34:17 AM on 15-05-2015
+***/
+
+.rhd-instagrabby-container {
+  width: 100%;
+  position: relative;
+}
+.rhd-instagrabby-container .rhd-instagrabby {
+  width: 100%;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+.rhd-instagrabby-container .rhd-instagrabby li {
+  width: 25%;
+  height: auto;
+  display: inline-block;
+}
+.rhd-instagrabby-container .rhd-instagrabby .rhd-instagrabby-icon img {
+  width: auto;
+  height: auto;
+}
