@@ -90,28 +90,26 @@ class RHD_Instagrabby extends WP_Widget {
 		$limit = absint( $instance['limit'] );
 		$id = ( $instance['id'] ) ? absint( $instance['id'] ) : $this->id;
 
-		if ( $visible ) $nav_width = 100 / $visible . '%';
-
 		echo $before_widget;
 
 		echo $title;
 
-		$result = $instagram->getUserMedia( 'self', $limit );
+		$feed = $instagram->getUserMedia( 'self', $limit );
+		$user = $instagram->getUser();
 
-		if ( $result ) {
-			$output = "<style scoped>#rhd_instagrabby_container-$id .rhd-instagrabby-pager a { width: $nav_width; }</style>"
-					. "<div id='rhd_instagrabby_container-$id' class='rhd-instagrabby-container'>\n"
-					. "<div class='rhd-instagrabby-pager'><a href='#' class='cycle-prev'><img src='" . RHD_INSTA_DIR . "/img/leftarrow.svg' alt='Carousel left'></a><a href='#' class='cycle-next'><img src='" . RHD_INSTA_DIR . "/img/rightarrow.svg' alt='Carousel right'></a></div>\n"
-					. "<ul class='rhd-instagrabby cycle-slideshow' data-cycle-slides='> li' data-cycle-prev='.cycle-prev' data-cycle-next='.cycle-next' data-cycle-fx='carousel' data-cycle-timeout='0' data-cycle-carousel-visible='$visible' data-cycle-carousel-fluid='true'>\n"
+		if ( $feed ) {
+			$output = "<div id='rhd_instagrabby_container-$id' class='rhd-instagrabby-container'>\n"
+					. "<a href='#' class='rhd-instagrabby-pager cycle-prev'><img src='" . RHD_INSTA_DIR . "/img/leftarrow.svg' alt='Carousel left'></a><a href='#' class='rhd-instagrabby-pager cycle-next'><img src='" . RHD_INSTA_DIR . "/img/rightarrow.svg' alt='Carousel right'></a>\n"
+					. "<ul class='rhd-instagrabby cycle-slideshow' data-cycle-slides='> li' data-cycle-prev='.cycle-prev' data-cycle-next='.cycle-next' data-cycle-fx='carousel' data-cycle-timeout='0' data-cycle-carousel-visible='$visible' data-cycle-carousel-fluid='true' data-allow-wrap='false'>\n"
 					. "<li class='rhd-instagrabby-icon'>\n"
-					. "<img src='" . RHD_INSTA_DIR . "/instagram.jpg' alt='Instagram'>\n"
+					. "<a href='//instagram.com/{$user->data->username}' target='_blank'><img src='" . RHD_INSTA_DIR . "/instagram.jpg' alt='Instagram'></a>\n"
 					. "</li>";
 
-			foreach ($result->data as $post) {
+			foreach ($feed->data as $post) {
 				$caption = ( $post->caption->text ) ? $post->caption->text : 'Instagram: no caption';
 
 				$output .= "<li class='rhd-instagrabby-post'>\n"
-						. "<img src='{$post->images->standard_resolution->url}' alt='$caption'>"
+						. "<a href='{$post->link}' target='_blank'><img src='{$post->images->standard_resolution->url}' alt='$caption'></a>"
 						. "</li>";
 			}
 
