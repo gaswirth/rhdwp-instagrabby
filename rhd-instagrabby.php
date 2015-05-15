@@ -89,7 +89,6 @@ class RHD_Instagrabby extends WP_Widget {
 		$visible = absint( $instance['visible'] );
 		$limit = absint( $instance['limit'] );
 		$id = ( $instance['id'] ) ? absint( $instance['id'] ) : $this->id;
-		$caption = ( $post->caption->text ) ? $post->caption->text : 'Instagram: no caption';
 
 		if ( $visible ) $nav_width = 100 / $visible . '%';
 
@@ -109,6 +108,8 @@ class RHD_Instagrabby extends WP_Widget {
 					. "</li>";
 
 			foreach ($result->data as $post) {
+				$caption = ( $post->caption->text ) ? $post->caption->text : 'Instagram: no caption';
+
 				$output .= "<li class='rhd-instagrabby-post'>\n"
 						. "<img src='{$post->images->standard_resolution->url}' alt='$caption'></a>"
 						. "</li>";
