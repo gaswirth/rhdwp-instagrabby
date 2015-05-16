@@ -49,12 +49,11 @@ class RHD_Instagrabby extends WP_Widget {
 	public function display_scripts() {
 		wp_enqueue_script( 'cycle2', RHD_INSTA_DIR . '/js/cycle2/jquery.cycle2.min.js', array( 'jquery' ), '2.1.6', true );
 		wp_enqueue_script( 'cycle2-carousel', RHD_INSTA_DIR . '/js/cycle2/jquery.cycle2.carousel.min.js', array( 'jquery', 'cycle2' ), '2.1.6', true );
-		//wp_enqueue_script( 'cycle2-swipe', RHD_INSTA_DIR . '/js/cycle2/jquery.cycle2.swipe.min.js', array( 'jquery', 'cycle2' ), '2.1.6', true );
 
 		if ( wp_is_mobile() )
 			wp_enqueue_script( 'jquery-mobile', RHD_INSTA_DIR . '/js/jquery.mobile.min.js', array( 'jquery' ), '1.4.5', true );
 
-		wp_enqueue_script( 'rhd-instagrabby', RHD_INSTA_DIR . '/js/rhd-instagrabby.js', array( 'jquery', 'jquery-mobile', 'modernizr' ), null, true );
+		wp_enqueue_script( 'rhd-instagrabby', RHD_INSTA_DIR . '/js/rhd-instagrabby.js', array( 'jquery', 'modernizr', 'cycle2', 'cycle2-carousel' ), null, true );
 	}
 
 	public function display_styles() {
@@ -102,7 +101,7 @@ class RHD_Instagrabby extends WP_Widget {
 		if ( $feed ) {
 			$output = "<div id='rhd_instagrabby_container-$id' class='rhd-instagrabby-container'>\n"
 					. "<a href='#' class='rhd-instagrabby-pager cycle-prev'><img src='" . RHD_INSTA_DIR . "/img/leftarrow.svg' alt='Carousel left'></a><a href='#' class='rhd-instagrabby-pager cycle-next'><img src='" . RHD_INSTA_DIR . "/img/rightarrow.svg' alt='Carousel right'></a>\n"
-					. "<ul class='rhd-instagrabby cycle-slideshow' data-cycle-slides='> li' data-cycle-prev='.cycle-prev' data-cycle-next='.cycle-next' data-cycle-fx='carousel' data-cycle-timeout='0' data-cycle-carousel-visible='$visible' data-cycle-carousel-fluid='true' data-allow-wrap='false' data-cycle-swipe='true'>\n"
+					. "<ul class='rhd-instagrabby' data-cycle-carousel-visible='$visible'>\n"
 					."<li class='rhd-instagrabby-icon'>\n"
 					. "<a href='//instagram.com/{$user->data->username}' target='_blank'><img src='" . RHD_INSTA_DIR . "/instagram.jpg' alt='Instagram'></a>\n"
 					. "</li>";
