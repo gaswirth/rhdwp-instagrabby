@@ -12,7 +12,7 @@
 		fx: 'carousel',
 		timeout: 0,
 		carouselFluid: true,
-		dataAllowWrap: false,
+		allowWrap: false,
 		swipe: true
 	});
 
