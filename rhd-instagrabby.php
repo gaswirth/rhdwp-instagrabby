@@ -4,7 +4,7 @@
  * Description: A simple Instagram widget
  * Author: Roundhouse Designs
  * Author URI: https://roundhouse-designs.com
- * Version: 1.0
+ * Version: 1.0.1
 **/
 
 
