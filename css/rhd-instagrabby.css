@@ -1,5 +1,5 @@
 /***
-* RHD Dev: Compiled at 5:10:03 PM on 15-05-2015
+* RHD Dev: Compiled at 8:16:49 PM on 15-05-2015
 ***/
 
 /* ==========================================================================
@@ -31,7 +31,10 @@
   width: auto;
   height: auto;
 }
-.rhd-instagrabby-container .rhd-instagrabby-pager {
+.rhd-instagrabby-pager {
+  display: none;
+}
+.desktop .rhd-instagrabby-pager {
   width: 10%;
   height: auto;
   display: block;
@@ -50,20 +53,20 @@
   -webkit-transition: all 0.25s ease;
   transition: all 0.25s ease;
 }
-.rhd-instagrabby-container .rhd-instagrabby-pager:hover {
+.desktop .rhd-instagrabby-pager:hover {
   background-color: rgba(255,255,255,0.2);
 }
-.rhd-instagrabby-container .rhd-instagrabby-pager img {
+.desktop .rhd-instagrabby-pager img {
   width: 100%;
   height: auto;
   display: block;
 }
-.rhd-instagrabby-container .cycle-prev {
+.desktop .cycle-prev {
   left: 1%;
 }
-.rhd-instagrabby-container .cycle-next {
+.desktop .cycle-next {
   right: 1%;
 }
-.rhd-instagrabby-container .disabled {
+.desktop .disabled {
   visibility: hidden;
 }

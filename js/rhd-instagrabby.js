@@ -3,13 +3,13 @@
    ========================================================================== */
 
 (function($){
-
-	/*
-$(document).ready(function(){
-		$(".rhd-instagrabby-container").hover(function(){
-			$(this).children('.rhd-instagrabby-pager').fadeToggle();
-		});
+	$(document).ready(function(){
+		// jQuery animation fallback
+		if ( !Modernizr.csstransitions ) {
+			$(".rhd-instagrabby-container").hover(function(){
+				$(this).children('.rhd-instagrabby-pager').fadeToggle();
+			});
+			alert( 'transitions disabled' );
+		}
 	});
-*/
-
 })(jQuery);
