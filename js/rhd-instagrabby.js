@@ -11,6 +11,11 @@
 		checkWindowSize( opts );
 
 		$(window).resize( function(){ checkWindowSize(opts); } );
+
+		$(window).on('orientationchange', function(){
+			checkWindowSize( opts );
+			$('.rhd-instagrabby').cycle('reinit');
+		});
 	});
 
 	// jQuery animation fallback
@@ -22,6 +27,7 @@
 
 	function checkWindowSize( opts ){
 		var w = $(window).width();
+		console.log(w);
 
 		if ( w > 720 && w < 800 )
 			newVis = 5;

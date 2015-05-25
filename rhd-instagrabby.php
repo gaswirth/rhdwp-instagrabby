@@ -50,7 +50,7 @@ class RHD_Instagrabby extends WP_Widget {
 		wp_enqueue_script( 'cycle2', RHD_INSTA_DIR . '/js/cycle2/jquery.cycle2.min.js', array( 'jquery' ), '2.1.6', true );
 		wp_enqueue_script( 'cycle2-carousel', RHD_INSTA_DIR . '/js/cycle2/jquery.cycle2.carousel.min.js', array( 'jquery', 'cycle2' ), '2.1.6', true );
 
-		if ( wp_is_mobile() )
+		if ( rhd_is_mobile() )
 			wp_enqueue_script( 'jquery-mobile', RHD_INSTA_DIR . '/js/jquery.mobile.min.js', array( 'jquery' ), '1.4.5', true );
 
 		wp_enqueue_script( 'rhd-instagrabby', RHD_INSTA_DIR . '/js/rhd-instagrabby.js', array( 'jquery', 'modernizr', 'cycle2', 'cycle2-carousel' ), null, true );
@@ -97,8 +97,6 @@ class RHD_Instagrabby extends WP_Widget {
 		echo $before_widget;
 
 		echo $title;
-
-		//wp_localize_script( 'rhd_instagrabby', 'rhd_instagrabby_opts', array( 'visible' => $visible ) );
 
 		if ( $feed ) {
 			$output = "<div id='rhd_instagrabby_container-$id' class='rhd-instagrabby-container'>\n"
