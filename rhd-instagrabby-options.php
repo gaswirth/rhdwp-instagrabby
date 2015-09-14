@@ -60,7 +60,7 @@ class RHD_Instagrabby_Options
 		$code = $_GET['code'];
 	?>
 	<div class="wrap">
-		<h2>Damask Love Theme Options</h2>
+		<h2>Instagrabby Options</h2>
 		<form method="post" action="options.php">
 			<?php
 				// This prints out all hidden setting fields
