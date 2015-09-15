@@ -101,7 +101,7 @@ class RHD_Instagrabby extends WP_Widget {
 		if ( $feed ) {
 			$output = "<div id='rhd_instagrabby_container-$id' class='rhd-instagrabby-container'>\n"
 					. "<a href='#' class='rhd-instagrabby-pager cycle-prev'><img src='" . RHD_INSTA_DIR . "/img/leftarrow.svg' alt='Carousel left'></a><a href='#' class='rhd-instagrabby-pager cycle-next'><img src='" . RHD_INSTA_DIR . "/img/rightarrow.svg' alt='Carousel right'></a>\n"
-					. "<ul class='rhd-instagrabby' data-cycle-carousel-visible='$visible'>\n";
+					. "<ul class='rhd-instagrabby cycle-slideshow' data-cycle-log='false' data-cycle-carousel-visible='$visible' data-cycle-slides='> li' data-cycle-prev='.cycle-prev' data-cycle-next='.cycle-next' data-cycle-fx='carousel' data-cycle-timeout='0' data-cycle-carousel-fluid='true' data-cycle-allow-wrap='false' data-cycle-swipe='true' >\n";
 
 			foreach ($feed->data as $post) {
 				$caption = ( $post->caption->text ) ? $post->caption->text : 'Instagram: no caption';
