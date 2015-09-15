@@ -7,6 +7,20 @@
 	var newVis;
 	var oldVis = parseInt( $('.rhd-instagrabby').attr('data-cycle-carousel-visible'), 10 );
 
+	$(document).ready(function(){
+		$('.rhd-instagrabby').cycle({
+			log: 'false',
+			slides: '> li',
+			prev: '.cycle-prev',
+			next: '.cycle-next',
+			fx: 'carousel',
+			timeout: '0',
+			carouselFluid: 'true',
+			allowWrap: 'false',
+			swipe: 'true'
+		});
+	});
+
 	$('.rhd-instagrabby').on('cycle-bootstrap', function(e, opts, API) {
 		checkWindowSize( opts );
 
