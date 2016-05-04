@@ -87,7 +87,7 @@ class RHD_Instagrabby extends WP_Widget {
 		$instagram = new Instagram(array(
 			'apiKey'      => $options['rhd_instagrabby_client_id'],
 			'apiSecret'   => $options['rhd_instagrabby_client_secret'],
-			'apiCallback' => admin_url() . 'options-general.php?page=rhd_instagrabby_settings'
+			'apiCallback' => admin_url() . 'options-general.php?page=rhd_instagrabby_settings'
 		));
 
 		$instagram->setAccessToken( $token );
