@@ -57,7 +57,7 @@ class RHD_Instagrabby_Options
 
 		$loginUrl = $instagram->getLoginUrl();
 
-		$code = $_GET['code'];
+		$code = ( ! empty( $_GET['code'] ) ) ? $_GET['code'] : '';
 	?>
 	<div class="wrap">
 		<h2>Instagrabby Options</h2>
