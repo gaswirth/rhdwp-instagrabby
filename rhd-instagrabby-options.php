@@ -34,7 +34,7 @@ class RHD_Instagrabby_Options
 	{
 		add_options_page(
 			'Instagrabby Plugin Settings',
-			'Instagrabby Settings',
+			'RHD Instagrabby Settings',
 			'manage_options',
 			'rhd_instagrabby_settings',
 			array( $this, 'create_admin_page' )
@@ -60,7 +60,7 @@ class RHD_Instagrabby_Options
 		$code = ( ! empty( $_GET['code'] ) ) ? $_GET['code'] : '';
 	?>
 	<div class="wrap">
-		<h2>Instagrabby Options</h2>
+		<h2>RHD Instagrabby Options</h2>
 		<form method="post" action="options.php">
 			<?php
 				// This prints out all hidden setting fields
