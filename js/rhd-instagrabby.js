@@ -7,14 +7,16 @@
 	var newVis;
 	var oldVis = parseInt( $('.rhd-instagrabby').attr('data-cycle-carousel-visible'), 10 );
 
-	$('.rhd-instagrabby').on('cycle-bootstrap', function(e, opts, API) {
-		checkWindowSize( opts );
-
-		$(window).resize( function(){ checkWindowSize(opts); } );
-
-		$(window).on('orientationchange', function(){
+	$(document).ready(function(){
+		$('.rhd-instagrabby').on('cycle-bootstrap', function(e, opts, API) {
 			checkWindowSize( opts );
-			$('.rhd-instagrabby').cycle('reinit');
+
+			$(window).resize( function(){ checkWindowSize(opts); } );
+
+			$(window).on('orientationchange', function(){
+				checkWindowSize( opts );
+				$('.rhd-instagrabby').cycle('reinit');
+			});
 		});
 	});
 

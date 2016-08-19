@@ -87,12 +87,17 @@ class RHD_Instagrabby extends WP_Widget {
 		$instagram = new Instagram(array(
 			'apiKey'      => $options['rhd_instagrabby_client_id'],
 			'apiSecret'   => $options['rhd_instagrabby_client_secret'],
-			'apiCallback' => admin_url() . 'options-general.php?page=rhd_instagrabby_settings'
+			'apiCallback' => admin_url() . 'options-general.php?page=rhd_instagrabby_settings'
 		));
 
 		$instagram->setAccessToken( $token );
 		$feed = $instagram->getUserMedia( 'self', $limit );
 		$user = $instagram->getUser();
+
+		ob_start();
+		print_r( $feed->data );
+		$str = ob_get_clean();
+		error_log( $str );
 
 		echo $before_widget;
 
@@ -101,9 +106,12 @@ class RHD_Instagrabby extends WP_Widget {
 		if ( $feed ) {
 			$output = "<div id='rhd_instagrabby_container-$id' class='rhd-instagrabby-container'>\n"
 					. "<a href='#' class='rhd-instagrabby-pager cycle-prev'><img src='" . RHD_INSTA_DIR . "/img/leftarrow.svg' alt='Carousel left'></a><a href='#' class='rhd-instagrabby-pager cycle-next'><img src='" . RHD_INSTA_DIR . "/img/rightarrow.svg' alt='Carousel right'></a>\n"
-					. "<ul class='rhd-instagrabby cycle-slideshow' data-cycle-log='false' data-cycle-carousel-visible='$visible' data-cycle-slides='> li' data-cycle-prev='.cycle-prev' data-cycle-next='.cycle-next' data-cycle-fx='carousel' data-cycle-timeout='0' data-cycle-carousel-fluid='true' data-cycle-allow-wrap='false' data-cycle-swipe='true' >\n";
+					. "<ul class='rhd-instagrabby cycle-slideshow' data-cycle-carousel-visible='$visible' data-cycle-slides='> li' data-cycle-prev='.cycle-prev' data-cycle-next='.cycle-next' data-cycle-fx='carousel' data-cycle-timeout='0' data-cycle-carousel-fluid='true' data-cycle-allow-wrap='false' data-cycle-swipe='true' >\n"
+					."<li class='rhd-instagrabby-icon'>\n"
+					. "<a href='//instagram.com/{$user->data->username}' target='_blank'><img src='" . RHD_INSTA_DIR . "/instagram.jpg' alt='Instagram'></a>\n"
+					. "</li>";
 
-			foreach ($feed->data as $post) {
+			foreach ($feed as $post) {
 				$caption = ( $post->caption->text ) ? $post->caption->text : 'Instagram: no caption';
 
 				$output .= "<li class='rhd-instagrabby-post'>\n"
@@ -165,12 +173,12 @@ add_action( 'widgets_init', 'register_rhd_instagrabby_widget' );
 add_shortcode( 'instagrabby', 'rhd_instagrabby_shortcode' );
 function rhd_instagrabby_shortcode( $atts ) {
 	extract( shortcode_atts( array(
-								'title' => '',
-								'id' => 'NO-ID',
-								'visible' => 5,
-								'limit' => 10
-							),
-							$atts, 'instagrabby' ) );
+		'title' => '',
+		'id' => 'NO-ID',
+		'visible' => 5,
+		'limit' => 10
+	),
+	$atts, 'instagrabby' ) );
 
 	$args = array(
 		'before_title'	=> '<h2 class="widget-title">',
