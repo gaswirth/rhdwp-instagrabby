@@ -1,5 +1,79 @@
 /***
-* RHD Production: Compiled at 11:55:52 PM on 24-05-2015
+* RHD Dev: Compiled at 12:11:21 AM on 25-05-2015
 ***/
 
-.rhd-instagrabby-container{width:100%;position:relative;}.rhd-instagrabby-container:hover .rhd-instagrabby-pager{-webkit-opacity:1;-moz-opacity:1;opacity:1}.rhd-instagrabby-container .rhd-instagrabby{width:100%;height:auto;position:relative;overflow:hidden;list-style:none;padding:0;margin:0;text-align:left;}.rhd-instagrabby-container .rhd-instagrabby li{display:inline-block}.rhd-instagrabby-container .rhd-instagrabby .rhd-instagrabby-icon img{width:auto;height:auto}.rhd-instagrabby-pager{display:none}.desktop .rhd-instagrabby-pager{width:10%;height:auto;display:block;-webkit-opacity:0;-moz-opacity:0;opacity:0;padding:.375rem .5rem .375rem .25rem;position:absolute;top:50%;-webkit-transform:translateY(-50%);transform:translateY(-50%);z-index:200;-webkit-border-radius:50%;-moz-border-radius:50%;border-radius:50%;background-color:rgba(255,255,255,0.1);-webkit-transition:all .25s ease;transition:all .25s ease;}.desktop .rhd-instagrabby-pager:hover{background-color:rgba(255,255,255,0.2)}.desktop .rhd-instagrabby-pager img{width:100%;height:auto;display:block}.desktop .cycle-prev{left:1%}.desktop .cycle-next{right:1%}.desktop .disabled{visibility:hidden}
+/* ==========================================================================
+	Instagrabby
+   ========================================================================== */
+.rhd-instagrabby-container {
+  width: 100%;
+  position: relative;
+}
+.rhd-instagrabby-container:hover .rhd-instagrabby-pager {
+  -webkit-opacity: 1;
+  -moz-opacity: 1;
+  opacity: 1;
+}
+.rhd-instagrabby-container .rhd-instagrabby {
+  width: 100%;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+.rhd-instagrabby-container .rhd-instagrabby li {
+  display: inline-block;
+}
+.rhd-instagrabby-container .rhd-instagrabby .rhd-instagrabby-icon img {
+  width: auto;
+  height: auto;
+}
+.rhd-instagrabby-pager {
+  display: none;
+}
+.desktop .rhd-instagrabby-pager,
+.tablet .rhd-instagrabby-pager {
+  width: 10%;
+  height: auto;
+  display: block;
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+  opacity: 0;
+  padding: 0.375rem 0.5rem 0.375rem 0.25rem;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  z-index: 200;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  background-color: rgba(255,255,255,0.1);
+  -webkit-transition: all 0.25s ease;
+  transition: all 0.25s ease;
+}
+.desktop .rhd-instagrabby-pager:hover,
+.tablet .rhd-instagrabby-pager:hover {
+  background-color: rgba(255,255,255,0.2);
+}
+.desktop .rhd-instagrabby-pager img,
+.tablet .rhd-instagrabby-pager img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.desktop .cycle-prev,
+.tablet .cycle-prev {
+  left: 1%;
+}
+.desktop .cycle-next,
+.tablet .cycle-next {
+  right: 1%;
+}
+.desktop .disabled,
+.tablet .disabled {
+  visibility: hidden;
+}
